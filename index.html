@@ -84,6 +84,7 @@
       <button>End Timer</button>
       <button>Console Trace</button>
       <button>Trigger a Global Error</button>
+      <button>Throw Custom Error</button>
     </section>
   </main>
 
@@ -102,6 +103,131 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    // Global error handler
+window.addEventListener('error', event => {
+  console.error('Global error caught!');
+  console.error('Message:', event.message);
+  console.error('File:', event.filename);
+  console.error('Line:', event.lineno);
+  console.error('Column:', event.colno);
+  console.error('Error object:', event.error);
+});
+
+// Button 0: Console Log
+errorBtns[0].addEventListener('click', () => {
+  console.log('Hello from console.log!');
+});
+
+// Button 1: Console Error
+errorBtns[1].addEventListener('click', () => {
+  console.error('This is a console.error message.');
+});
+
+// Button 2: Console Count
+errorBtns[2].addEventListener('click', () => {
+  console.count('Console Count button clicked');
+});
+
+// Button 3: Console Warn
+errorBtns[3].addEventListener('click', () => {
+  console.warn('This is a console.warn message.');
+});
+
+// Button 4: Console Assert
+errorBtns[4].addEventListener('click', () => {
+  console.assert(false, 'This assertion failed on purpose.');
+});
+
+// Button 5: Console Clear
+errorBtns[5].addEventListener('click', () => {
+  console.clear();
+});
+
+// Button 6: Console Dir
+errorBtns[6].addEventListener('click', () => {
+  console.dir(document.querySelector('form'));
+});
+
+// Button 7: Console dirxml
+errorBtns[7].addEventListener('click', () => {
+  console.dirxml(document.querySelector('main'));
+});
+
+// Button 8: Console Group Start
+errorBtns[8].addEventListener('click', () => {
+  console.group('My Console Group');
+  console.log('This message is inside the group.');
+  console.log('Click Console Group End to close it.');
+});
+
+// Button 9: Console Group End
+errorBtns[9].addEventListener('click', () => {
+  console.groupEnd();
+});
+
+// Button 10: Console Table
+errorBtns[10].addEventListener('click', () => {
+  console.table([
+    { method: 'console.log', purpose: 'general messages' },
+    { method: 'console.error', purpose: 'error messages' },
+    { method: 'console.table', purpose: 'table data' }
+  ]);
+});
+
+// Button 11: Start Timer
+errorBtns[11].addEventListener('click', () => {
+  console.time('myTimer');
+  console.log('Timer started.');
+});
+
+// Button 12: End Timer
+errorBtns[12].addEventListener('click', () => {
+  console.timeEnd('myTimer');
+});
+
+// Button 13: Console Trace
+errorBtns[13].addEventListener('click', () => {
+  console.trace('Console trace example');
+});
+
+// Button 14: Trigger a Global Error
+errorBtns[14].addEventListener('click', () => {
+  missingFunction();
+});
+
+// Try / Catch / Finally example using the calculator
+form.addEventListener('submit', e => {
+  try {
+    let firstNum = document.querySelector('#first-num').value;
+    let secondNum = document.querySelector('#second-num').value;
+
+    if (firstNum === '' || secondNum === '') {
+      throw new Error('Both number fields must be filled out.');
+    }
+  } catch (error) {
+    console.error('Try/Catch caught an error:', error.message);
+  } finally {
+    console.log('Finally block ran after calculator submit.');
+  }
+});
+
+// Custom error
+class CalculatorError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'CalculatorError';
+  }
+}
+
+errorBtns[15].addEventListener('click', () => {
+  try {
+    throw new CalculatorError('This is a custom calculator error.');
+  } catch (error) {
+    console.error(error.name + ': ' + error.message);
+  }
+});
+
   </script>
 </body>
 
